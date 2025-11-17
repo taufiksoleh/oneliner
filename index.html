@@ -282,15 +282,24 @@
     <div class="notification" id="notification">Copied to clipboard!</div>
 
     <script>
+        // Global error handler
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nLine: ' + lineNo + '\nColumn: ' + columnNo);
+            return false;
+        };
+
         function minifyHTML() {
-            const input = document.getElementById('input').value;
+            try {
+                console.log('minifyHTML function called');
+                const input = document.getElementById('input').value;
+                console.log('Input length:', input.length);
 
-            if (!input.trim()) {
-                showNotification('Please enter some HTML code!', '#ef4444');
-                return;
-            }
+                if (!input.trim()) {
+                    showNotification('Please enter some HTML code!', '#ef4444');
+                    return;
+                }
 
-            const originalSize = input.length;
+                const originalSize = input.length;
 
             // Minification process
             let minified = input;
@@ -355,16 +364,22 @@
             const minifiedSize = minified.length;
             const saved = originalSize > 0 ? ((originalSize - minifiedSize) / originalSize * 100).toFixed(2) : 0;
 
-            // Update output and stats
-            document.getElementById('output').value = minified;
-            document.getElementById('originalSize').textContent = originalSize + ' bytes';
-            document.getElementById('minifiedSize').textContent = minifiedSize + ' bytes';
-            document.getElementById('savedSize').textContent = saved + '%';
+            console.log('Minification complete. Original:', originalSize, 'Minified:', minifiedSize, 'Saved:', saved + '%');
 
-            showNotification('HTML minified successfully!', '#10b981');
+                // Update output and stats
+                document.getElementById('output').value = minified;
+                document.getElementById('originalSize').textContent = originalSize + ' bytes';
+                document.getElementById('minifiedSize').textContent = minifiedSize + ' bytes';
+                document.getElementById('savedSize').textContent = saved + '%';
+
+                showNotification('HTML minified successfully!', '#10b981');
+            } catch (error) {
+                console.error('Error in minifyHTML:', error);
+                showNotification('Error: ' + error.message, '#ef4444');
+            }
         }
 
-        function copyOutput() {
+        async function copyOutput() {
             const output = document.getElementById('output');
 
             if (!output.value.trim()) {
@@ -372,10 +387,16 @@
                 return;
             }
 
-            output.select();
-            document.execCommand('copy');
-
-            showNotification('Copied to clipboard!', '#10b981');
+            try {
+                // Modern Clipboard API
+                await navigator.clipboard.writeText(output.value);
+                showNotification('Copied to clipboard!', '#10b981');
+            } catch (err) {
+                // Fallback for older browsers
+                output.select();
+                document.execCommand('copy');
+                showNotification('Copied to clipboard!', '#10b981');
+            }
         }
 
         function clearAll() {
