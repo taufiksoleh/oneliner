@@ -1,7 +1,8 @@
 const CACHE_NAME = 'oneliner-v1';
+const BASE_PATH = self.location.pathname.replace(/sw\.js$/, '');
 const urlsToCache = [
-  '/oneliner/',
-  '/oneliner/index.html',
+  BASE_PATH,
+  BASE_PATH + 'index.html',
   'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js',
@@ -54,7 +55,7 @@ self.addEventListener('fetch', event => {
       })
       .catch(() => {
         // Offline fallback
-        return caches.match('/oneliner/index.html');
+        return caches.match(BASE_PATH + 'index.html');
       })
   );
 });
