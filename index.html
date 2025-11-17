@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Minifier - Convert to One Line</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .editor-section {
+            margin-bottom: 20px;
+        }
+
+        .editor-section label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-minify {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-minify:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-copy {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-clear {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .features {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .features ul {
+            list-style: none;
+            color: #666;
+        }
+
+        .features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTML Minifier</h1>
+        <p class="subtitle">Convert multiple lines of HTML to one line and remove unused characters</p>
+
+        <div class="editor-section">
+            <label for="input">Input HTML:</label>
+            <textarea id="input" placeholder="Paste your HTML code here..."></textarea>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-minify" onclick="minifyHTML()">Minify HTML</button>
+            <button class="btn-copy" onclick="copyOutput()">Copy Output</button>
+            <button class="btn-clear" onclick="clearAll()">Clear All</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-label">Original Size</div>
+                <div class="stat-value" id="originalSize">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Minified Size</div>
+                <div class="stat-value" id="minifiedSize">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Saved</div>
+                <div class="stat-value" id="savedSize">0%</div>
+            </div>
+        </div>
+
+        <div class="editor-section">
+            <label for="output">Minified Output:</label>
+            <textarea id="output" readonly placeholder="Minified HTML will appear here..."></textarea>
+        </div>
+
+        <div class="features">
+            <h3>Features:</h3>
+            <ul>
+                <li>Removes HTML comments</li>
+                <li>Removes unnecessary whitespace and line breaks</li>
+                <li>Converts multiple lines to single line</li>
+                <li>Removes spaces between tags</li>
+                <li>Preserves content in &lt;pre&gt;, &lt;textarea&gt;, and &lt;script&gt; tags</li>
+                <li>Reduces file size significantly</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Copied to clipboard!</div>
+
+    <script>
+        function minifyHTML() {
+            const input = document.getElementById('input').value;
+
+            if (!input.trim()) {
+                showNotification('Please enter some HTML code!', '#ef4444');
+                return;
+            }
+
+            const originalSize = input.length;
+
+            // Minification process
+            let minified = input;
+
+            // Store preserved content (pre, textarea, script tags)
+            const preserved = [];
+            const preserveTags = ['pre', 'textarea', 'script', 'code'];
+
+            preserveTags.forEach(tag => {
+                const regex = new RegExp(`<${tag}[^>]*>[\\s\\S]*?<\\/${tag}>`, 'gi');
+                minified = minified.replace(regex, match => {
+                    preserved.push(match);
+                    return `___PRESERVED_${preserved.length - 1}___`;
+                });
+            });
+
+            // Remove HTML comments (but preserve conditional comments)
+            minified = minified.replace(/<!--(?!\[if\s)(?!<!)[^\[][\s\S]*?-->/g, '');
+
+            // Remove whitespace between tags
+            minified = minified.replace(/>\s+</g, '><');
+
+            // Remove leading and trailing whitespace from each line
+            minified = minified.replace(/^\s+/gm, '');
+            minified = minified.replace(/\s+$/gm, '');
+
+            // Replace multiple spaces with single space
+            minified = minified.replace(/\s{2,}/g, ' ');
+
+            // Remove spaces around = in attributes
+            minified = minified.replace(/\s*=\s*/g, '=');
+
+            // Remove optional quotes around simple attribute values
+            // minified = minified.replace(/=["']([a-zA-Z0-9-_]+)["']/g, '=$1');
+
+            // Remove line breaks and convert to single line
+            minified = minified.replace(/\n/g, '');
+            minified = minified.replace(/\r/g, '');
+
+            // Remove spaces before closing tags
+            minified = minified.replace(/\s+>/g, '>');
+
+            // Remove spaces after opening tags
+            minified = minified.replace(/<\s+/g, '<');
+
+            // Restore preserved content
+            preserved.forEach((content, index) => {
+                // Also minify the preserved content but keep it readable
+                let preservedMinified = content;
+                // For script tags, remove comments but keep the structure
+                if (content.match(/<script/i)) {
+                    preservedMinified = content.replace(/\/\*[\s\S]*?\*\//g, '');
+                    preservedMinified = preservedMinified.replace(/\/\/.*/g, '');
+                    preservedMinified = preservedMinified.replace(/\n\s+/g, '\n');
+                }
+                minified = minified.replace(`___PRESERVED_${index}___`, content);
+            });
+
+            // Final cleanup - remove any remaining excessive whitespace
+            minified = minified.trim();
+
+            const minifiedSize = minified.length;
+            const saved = originalSize > 0 ? ((originalSize - minifiedSize) / originalSize * 100).toFixed(2) : 0;
+
+            // Update output and stats
+            document.getElementById('output').value = minified;
+            document.getElementById('originalSize').textContent = originalSize + ' bytes';
+            document.getElementById('minifiedSize').textContent = minifiedSize + ' bytes';
+            document.getElementById('savedSize').textContent = saved + '%';
+
+            showNotification('HTML minified successfully!', '#10b981');
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output');
+
+            if (!output.value.trim()) {
+                showNotification('Nothing to copy!', '#ef4444');
+                return;
+            }
+
+            output.select();
+            document.execCommand('copy');
+
+            showNotification('Copied to clipboard!', '#10b981');
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('originalSize').textContent = '0';
+            document.getElementById('minifiedSize').textContent = '0';
+            document.getElementById('savedSize').textContent = '0%';
+
+            showNotification('Cleared all fields!', '#10b981');
+        }
+
+        function showNotification(message, color) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = color;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + Enter to minify
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                minifyHTML();
+            }
+
+            // Ctrl/Cmd + K to clear
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                clearAll();
+            }
+        });
+
+        // Load sample HTML on page load
+        window.addEventListener('load', () => {
+            const sampleHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- This is a comment -->
+    <h1>Hello World</h1>
+
+    <p>This is a sample HTML document with multiple lines.</p>
+
+    <div class="container">
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+
+    <script>
+        console.log('Hello from JavaScript');
+    </script>
+</body>
+</html>`;
+
+            document.getElementById('input').value = sampleHTML;
+        });
+    </script>
+</body>
+</html>
