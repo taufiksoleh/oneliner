@@ -1,56 +1,46 @@
-# HTML Minifier
+# Oneliner
 
-A simple, elegant web-based tool to minify HTML code and convert it to a single line.
+A web-based minifier for HTML, CSS, JavaScript, and JSON. Built to help developers optimize their code quickly without installing anything.
 
-## Features
+## What it does
 
-- Remove HTML comments
-- Remove unnecessary whitespace and line breaks
-- Convert multiple lines to single line
-- Remove spaces between tags
-- Preserve content in `<pre>`, `<textarea>`, and `<script>` tags
-- Show file size reduction statistics
-- Copy minified output with one click
-- Keyboard shortcuts support
+Oneliner strips out unnecessary whitespace, comments, and formatting from your code to reduce file size. Pretty straightforward. You can paste code directly, drag and drop files, or upload them. The tool shows you how much space you saved and lets you download or copy the results.
 
-## Live Demo
+Works with:
+- HTML (preserves content in pre, textarea, script tags)
+- CSS (removes comments, optimizes spacing)
+- JavaScript (basic minification while keeping functionality intact)
+- JSON (validates and compresses)
 
-This project is hosted on GitHub Pages: [View Live Demo](https://taufiksoleh.github.io/oneliner/)
+## Try it out
 
-## Usage
+**Live version:** https://taufiksoleh.github.io/oneliner/
 
-1. Paste your HTML code into the input textarea
-2. Click "Minify HTML" or press `Ctrl/Cmd + Enter`
-3. View the minified output and size reduction statistics
-4. Click "Copy Output" to copy the minified HTML to clipboard
+The interface has tabs for each file type. Just paste your code, hit minify, and you're done. There's also dark mode if you're into that.
 
-### Keyboard Shortcuts
+## Keyboard shortcuts
 
-- `Ctrl/Cmd + Enter` - Minify HTML
-- `Ctrl/Cmd + K` - Clear all fields
+- `Ctrl/Cmd + Enter` → Minify current tab
+- `Ctrl/Cmd + K` → Clear everything
 
-## Deployment
+## Running locally
 
-This site automatically deploys to GitHub Pages when changes are pushed to the `main` branch.
+No build tools, no npm, no setup. Just open `index.html` in your browser.
 
-### Setup GitHub Pages
+## Deploy your own
 
-1. Go to your repository settings
-2. Navigate to "Pages" section
-3. Under "Build and deployment":
-   - Source: GitHub Actions
-   - The workflow will automatically deploy your site
+This repo uses GitHub Actions to deploy automatically. If you fork it:
 
-## Local Development
+1. Enable GitHub Pages in your repo settings
+2. Set source to "GitHub Actions"
+3. Push to main branch and it deploys
 
-Simply open `index.html` in your web browser. No build process required!
+That's it.
 
-## Technologies Used
+## Technical stuff
 
-- Pure HTML, CSS, and JavaScript (no dependencies)
-- Responsive design for mobile and desktop
-- Modern gradient UI with smooth animations
+Built with vanilla JavaScript, no frameworks or dependencies. The whole thing is a single HTML file with embedded CSS and JS. Responsive layout works on mobile too.
 
 ## License
 
-MIT License - feel free to use and modify as needed.
+MIT. Use it however you want.
