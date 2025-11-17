@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tri-Minifier - HTML, CSS & JavaScript Minifier</title>
+    <title>Oneliner - HTML, CSS, JavaScript & JSON Minifier</title>
     <style>
         :root {
             --bg-gradient-start: #667eea;
@@ -422,8 +422,8 @@
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <h1>🚀 Tri-Minifier</h1>
-                <p class="subtitle">Professional HTML, CSS & JavaScript minifier for developers</p>
+                <h1>🚀 Oneliner</h1>
+                <p class="subtitle">Professional HTML, CSS, JavaScript & JSON minifier for developers</p>
             </div>
             <button class="dark-mode-toggle" onclick="toggleDarkMode()">
                 <span id="themeIcon">🌙</span>
@@ -435,6 +435,7 @@
             <button class="tab active" onclick="switchTab('html')">HTML</button>
             <button class="tab" onclick="switchTab('css')">CSS</button>
             <button class="tab" onclick="switchTab('js')">JavaScript</button>
+            <button class="tab" onclick="switchTab('json')">JSON</button>
         </div>
 
         <!-- HTML Tab -->
@@ -560,12 +561,54 @@
             </div>
         </div>
 
+        <!-- JSON Tab -->
+        <div class="tab-content" id="json-content">
+            <div class="file-upload-area" id="jsonUploadArea">
+                <p>📁 Drag & drop JSON file here or click to browse</p>
+                <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="handleFileSelect(event, 'json')">
+                <button class="file-input-btn" onclick="document.getElementById('jsonFileInput').click()">Choose File</button>
+            </div>
+
+            <div class="editor-section">
+                <label for="jsonInput">Input JSON:</label>
+                <textarea id="jsonInput" placeholder="Paste your JSON code here..."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-minify" onclick="minify('json')">Minify JSON</button>
+                <button class="btn-copy" onclick="copyOutput('json')">Copy Output</button>
+                <button class="btn-download" onclick="downloadFile('json')">Download</button>
+                <button class="btn-clear" onclick="clearAll('json')">Clear All</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Original Size</div>
+                    <div class="stat-value" id="jsonOriginalSize">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Minified Size</div>
+                    <div class="stat-value" id="jsonMinifiedSize">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Saved</div>
+                    <div class="stat-value" id="jsonSavedSize">0%</div>
+                </div>
+            </div>
+
+            <div class="editor-section">
+                <label for="jsonOutput">Minified Output:</label>
+                <textarea id="jsonOutput" readonly placeholder="Minified JSON will appear here..."></textarea>
+            </div>
+        </div>
+
         <div class="features">
             <h3>✨ Features:</h3>
             <ul>
                 <li><strong>HTML Minifier:</strong> Removes comments, whitespace, and unnecessary characters</li>
                 <li><strong>CSS Minifier:</strong> Optimizes stylesheets by removing spaces and comments</li>
                 <li><strong>JavaScript Minifier:</strong> Compresses JS code while preserving functionality</li>
+                <li><strong>JSON Minifier:</strong> Removes whitespace and formats JSON compactly</li>
                 <li><strong>File Upload:</strong> Drag & drop or browse to upload files</li>
                 <li><strong>File Download:</strong> Save minified output directly</li>
                 <li><strong>Dark Mode:</strong> Eye-friendly dark theme with persistence</li>
@@ -773,6 +816,18 @@
             return minified.trim();
         }
 
+        // JSON Minifier
+        function minifyJSON(input) {
+            try {
+                // Parse JSON to validate and then stringify without whitespace
+                const parsed = JSON.parse(input);
+                return JSON.stringify(parsed);
+            } catch (error) {
+                // If parsing fails, return error message
+                throw new Error('Invalid JSON: ' + error.message);
+            }
+        }
+
         // Main minify function
         function minify(type) {
             const input = document.getElementById(`${type}Input`).value;
@@ -786,16 +841,24 @@
             let minified;
 
             // Apply appropriate minifier
-            switch(type) {
-                case 'html':
-                    minified = minifyHTML(input);
-                    break;
-                case 'css':
-                    minified = minifyCSS(input);
-                    break;
-                case 'js':
-                    minified = minifyJS(input);
-                    break;
+            try {
+                switch(type) {
+                    case 'html':
+                        minified = minifyHTML(input);
+                        break;
+                    case 'css':
+                        minified = minifyCSS(input);
+                        break;
+                    case 'js':
+                        minified = minifyJS(input);
+                        break;
+                    case 'json':
+                        minified = minifyJSON(input);
+                        break;
+                }
+            } catch (error) {
+                showNotification(error.message, '#ef4444');
+                return;
             }
 
             const minifiedSize = minified.length;
@@ -844,7 +907,7 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
 
-            const extensions = { html: 'html', css: 'css', js: 'js' };
+            const extensions = { html: 'html', css: 'css', js: 'js', json: 'json' };
             a.href = url;
             a.download = `minified.min.${extensions[type]}`;
             document.body.appendChild(a);
@@ -881,7 +944,7 @@
 
         // Drag and drop setup
         function setupDragAndDrop() {
-            ['html', 'css', 'js'].forEach(type => {
+            ['html', 'css', 'js', 'json'].forEach(type => {
                 const uploadArea = document.getElementById(`${type}UploadArea`);
 
                 uploadArea.addEventListener('click', () => {
@@ -1065,6 +1128,49 @@ async function fetchData(url) {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+}`;
+
+            // Sample JSON
+            document.getElementById('jsonInput').value = `{
+    "name": "John Doe",
+    "age": 30,
+    "email": "john.doe@example.com",
+    "address": {
+        "street": "123 Main Street",
+        "city": "New York",
+        "state": "NY",
+        "zipCode": "10001",
+        "country": "USA"
+    },
+    "phoneNumbers": [
+        {
+            "type": "home",
+            "number": "555-1234"
+        },
+        {
+            "type": "mobile",
+            "number": "555-5678"
+        }
+    ],
+    "hobbies": [
+        "reading",
+        "traveling",
+        "photography",
+        "coding"
+    ],
+    "employment": {
+        "company": "Tech Corp",
+        "position": "Software Engineer",
+        "yearsOfExperience": 5,
+        "skills": [
+            "JavaScript",
+            "Python",
+            "React",
+            "Node.js"
+        ]
+    },
+    "isActive": true,
+    "lastLogin": "2024-01-15T10:30:00Z"
 }`;
         }
     </script>
