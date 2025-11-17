@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional HTML, CSS, JavaScript & JSON minifier and beautifier for developers. Works offline.">
+    <meta name="theme-color" content="#2563eb">
     <title>Oneliner - HTML, CSS, JavaScript & JSON Minifier</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Oneliner">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <style>
         :root {
             --primary: #2563eb;
@@ -327,9 +338,33 @@
             color: var(--text-muted);
         }
 
+        .code-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .code-wrapper pre {
+            margin: 0;
+            width: 100%;
+            min-height: 280px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow: auto;
+        }
+
+        .code-wrapper pre code {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+
+        .output-hidden {
+            display: none;
+        }
+
         .button-group {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 0.875rem;
             margin: 1.5rem 0;
         }
@@ -374,6 +409,18 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
             background: var(--primary-dark);
+        }
+
+        .btn-beautify {
+            background: var(--secondary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-beautify:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-copy {
@@ -685,6 +732,7 @@
 
             <div class="button-group">
                 <button class="btn-minify" onclick="minify('html')">Minify HTML</button>
+                <button class="btn-beautify" onclick="beautify('html')">Beautify HTML</button>
                 <button class="btn-copy" onclick="copyOutput('html')">Copy Output</button>
                 <button class="btn-download" onclick="downloadFile('html')">Download</button>
                 <button class="btn-clear" onclick="clearAll('html')">Clear All</button>
@@ -726,6 +774,7 @@
 
             <div class="button-group">
                 <button class="btn-minify" onclick="minify('css')">Minify CSS</button>
+                <button class="btn-beautify" onclick="beautify('css')">Beautify CSS</button>
                 <button class="btn-copy" onclick="copyOutput('css')">Copy Output</button>
                 <button class="btn-download" onclick="downloadFile('css')">Download</button>
                 <button class="btn-clear" onclick="clearAll('css')">Clear All</button>
@@ -767,6 +816,7 @@
 
             <div class="button-group">
                 <button class="btn-minify" onclick="minify('js')">Minify JavaScript</button>
+                <button class="btn-beautify" onclick="beautify('js')">Beautify JavaScript</button>
                 <button class="btn-copy" onclick="copyOutput('js')">Copy Output</button>
                 <button class="btn-download" onclick="downloadFile('js')">Download</button>
                 <button class="btn-clear" onclick="clearAll('js')">Clear All</button>
@@ -808,6 +858,7 @@
 
             <div class="button-group">
                 <button class="btn-minify" onclick="minify('json')">Minify JSON</button>
+                <button class="btn-beautify" onclick="beautify('json')">Beautify JSON</button>
                 <button class="btn-copy" onclick="copyOutput('json')">Copy Output</button>
                 <button class="btn-download" onclick="downloadFile('json')">Download</button>
                 <button class="btn-clear" onclick="clearAll('json')">Clear All</button>
@@ -837,14 +888,13 @@
         <div class="features">
             <h3>✨ Features:</h3>
             <ul>
-                <li><strong>HTML Minifier:</strong> Removes comments, whitespace, and unnecessary characters</li>
-                <li><strong>CSS Minifier:</strong> Optimizes stylesheets by removing spaces and comments</li>
-                <li><strong>JavaScript Minifier:</strong> Compresses JS code while preserving functionality</li>
-                <li><strong>JSON Minifier:</strong> Removes whitespace and formats JSON compactly</li>
+                <li><strong>Minify & Beautify:</strong> Compress or format HTML, CSS, JavaScript, and JSON</li>
+                <li><strong>Two-Way Processing:</strong> Minify code to save space or beautify to improve readability</li>
+                <li><strong>Works Offline:</strong> Full PWA support - install and use without internet</li>
                 <li><strong>File Upload:</strong> Drag & drop or browse to upload files</li>
-                <li><strong>File Download:</strong> Save minified output directly</li>
+                <li><strong>File Download:</strong> Save processed output directly</li>
                 <li><strong>Dark Mode:</strong> Eye-friendly dark theme with persistence</li>
-                <li><strong>Statistics:</strong> Real-time size comparison and savings percentage</li>
+                <li><strong>Statistics:</strong> Real-time size comparison and change percentage</li>
                 <li><strong>Copy to Clipboard:</strong> One-click copy functionality</li>
                 <li><strong>Keyboard Shortcuts:</strong> Ctrl/Cmd+Enter to minify, Ctrl/Cmd+K to clear</li>
             </ul>
@@ -859,6 +909,11 @@
 
     <div class="notification" id="notification">Success!</div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
     <script>
         // State management
         let currentTab = 'html';
@@ -868,7 +923,21 @@
             loadPreferences();
             loadSampleCode();
             setupDragAndDrop();
+            registerServiceWorker();
         });
+
+        // Register service worker for PWA
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            }
+        }
 
         // Tab switching
         function switchTab(tab) {
@@ -1060,6 +1129,165 @@
             }
         }
 
+        // HTML Beautifier
+        function beautifyHTML(input) {
+            let formatted = input;
+            let indentLevel = 0;
+            const indentSize = 4;
+            const indent = () => ' '.repeat(indentLevel * indentSize);
+
+            // Remove existing whitespace between tags
+            formatted = formatted.replace(/>\s+</g, '><');
+
+            // Add line breaks and indentation
+            formatted = formatted.replace(/(<(?:\/)?[\w-]+(?:[^>]*)>)/g, (match) => {
+                if (match.startsWith('</')) {
+                    indentLevel = Math.max(0, indentLevel - 1);
+                    return '\n' + indent() + match;
+                } else if (match.endsWith('/>')) {
+                    return '\n' + indent() + match;
+                } else if (['<br>', '<hr>', '<img', '<input', '<meta', '<link'].some(tag => match.startsWith(tag))) {
+                    return '\n' + indent() + match;
+                } else {
+                    const result = '\n' + indent() + match;
+                    if (!['<script', '<style', '<pre', '<textarea'].some(tag => match.startsWith(tag))) {
+                        indentLevel++;
+                    } else {
+                        indentLevel++;
+                    }
+                    return result;
+                }
+            });
+
+            return formatted.trim();
+        }
+
+        // CSS Beautifier
+        function beautifyCSS(input) {
+            let formatted = input;
+            const indentSize = 4;
+            const indent = (level) => ' '.repeat(level * indentSize);
+
+            // Add line breaks after { and }
+            formatted = formatted.replace(/\{/g, ' {\n');
+            formatted = formatted.replace(/\}/g, '\n}\n\n');
+            formatted = formatted.replace(/;/g, ';\n');
+
+            // Add proper indentation
+            const lines = formatted.split('\n');
+            let indentLevel = 0;
+            const indentedLines = lines.map(line => {
+                line = line.trim();
+                if (!line) return '';
+
+                if (line.includes('}')) {
+                    indentLevel = Math.max(0, indentLevel - 1);
+                }
+
+                const indented = indent(indentLevel) + line;
+
+                if (line.includes('{')) {
+                    indentLevel++;
+                }
+
+                return indented;
+            });
+
+            return indentedLines.join('\n').trim();
+        }
+
+        // JavaScript Beautifier
+        function beautifyJS(input) {
+            let formatted = input;
+            const indentSize = 4;
+            const indent = (level) => ' '.repeat(level * indentSize);
+
+            // Add line breaks after { } and ;
+            formatted = formatted.replace(/\{/g, ' {\n');
+            formatted = formatted.replace(/\}/g, '\n}\n');
+            formatted = formatted.replace(/;/g, ';\n');
+
+            // Add proper indentation
+            const lines = formatted.split('\n');
+            let indentLevel = 0;
+            const indentedLines = lines.map(line => {
+                line = line.trim();
+                if (!line) return '';
+
+                if (line.startsWith('}')) {
+                    indentLevel = Math.max(0, indentLevel - 1);
+                }
+
+                const indented = indent(indentLevel) + line;
+
+                if (line.endsWith('{')) {
+                    indentLevel++;
+                }
+
+                return indented;
+            });
+
+            return indentedLines.join('\n').trim();
+        }
+
+        // JSON Beautifier
+        function beautifyJSON(input) {
+            try {
+                const parsed = JSON.parse(input);
+                return JSON.stringify(parsed, null, 4);
+            } catch (error) {
+                throw new Error('Invalid JSON: ' + error.message);
+            }
+        }
+
+        // Main beautify function
+        function beautify(type) {
+            const input = document.getElementById(`${type}Input`).value;
+
+            if (!input.trim()) {
+                showNotification('Please enter some code!', '#ef4444');
+                return;
+            }
+
+            const originalSize = input.length;
+            let beautified;
+
+            try {
+                switch(type) {
+                    case 'html':
+                        beautified = beautifyHTML(input);
+                        break;
+                    case 'css':
+                        beautified = beautifyCSS(input);
+                        break;
+                    case 'js':
+                        beautified = beautifyJS(input);
+                        break;
+                    case 'json':
+                        beautified = beautifyJSON(input);
+                        break;
+                }
+            } catch (error) {
+                showNotification(error.message, '#ef4444');
+                return;
+            }
+
+            const beautifiedSize = beautified.length;
+            const difference = beautifiedSize - originalSize;
+            const percentChange = originalSize > 0 ? ((difference / originalSize) * 100).toFixed(2) : 0;
+
+            // Update output and stats
+            document.getElementById(`${type}Output`).value = beautified;
+            document.getElementById(`${type}OriginalSize`).textContent = originalSize + ' bytes';
+            document.getElementById(`${type}MinifiedSize`).textContent = beautifiedSize + ' bytes';
+            document.getElementById(`${type}SavedSize`).textContent = (difference >= 0 ? '+' : '') + percentChange + '%';
+
+            // Apply syntax highlighting
+            applySyntaxHighlighting(type, beautified);
+
+            showNotification(`${type.toUpperCase()} beautified successfully!`, '#8b5cf6');
+        }
+
         // Main minify function
         function minify(type) {
             const input = document.getElementById(`${type}Input`).value;
@@ -1102,7 +1330,35 @@
             document.getElementById(`${type}MinifiedSize`).textContent = minifiedSize + ' bytes';
             document.getElementById(`${type}SavedSize`).textContent = saved + '%';
 
+            // Apply syntax highlighting
+            applySyntaxHighlighting(type, minified);
+
             showNotification(`${type.toUpperCase()} minified successfully! Saved ${saved}%`, '#10b981');
+        }
+
+        // Apply syntax highlighting to output
+        function applySyntaxHighlighting(type, code) {
+            const languageMap = {
+                'html': 'markup',
+                'css': 'css',
+                'js': 'javascript',
+                'json': 'json'
+            };
+
+            const language = languageMap[type];
+            const outputTextarea = document.getElementById(`${type}Output`);
+
+            // Escape HTML for proper display
+            const escapedCode = code
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Apply Prism highlighting
+            const highlighted = Prism.highlight(code, Prism.languages[language], language);
+
+            // For now, just keep the textarea - we can enhance this later with a better view
+            // This is a lightweight implementation
         }
 
         // Copy to clipboard
