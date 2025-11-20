@@ -1,0 +1,40 @@
+{
+  "name": "oneliner",
+  "version": "2.0.0",
+  "description": "Professional HTML, CSS, JavaScript & JSON minifier and beautifier with Base64 encoder/decoder",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "@vite-pwa/nuxt": "^0.4.0",
+    "nuxt": "^3.10.0",
+    "pinia": "^2.1.7",
+    "prismjs": "^1.29.0",
+    "vue": "^3.4.15"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/prismjs": "^1.26.3",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitest/ui": "^1.2.0",
+    "@vue/test-utils": "^2.4.3",
+    "@vitest/coverage-v8": "^1.2.0",
+    "happy-dom": "^12.10.3",
+    "playwright-core": "^1.40.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vitest": "^1.2.0",
+    "vue-tsc": "^1.8.27"
+  }
+}
