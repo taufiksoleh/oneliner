@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Primary Meta Tags -->
-    <title>Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Code Beautifier Tool</title>
-    <meta name="title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Code Beautifier Tool">
-    <meta name="description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics. No installation required. Works completely offline.">
-    <meta name="keywords" content="HTML minifier, CSS minifier, JavaScript minifier, JSON minifier, code beautifier, code formatter, online minifier, free minifier, developer tools, code compression, HTML formatter, CSS formatter, JavaScript formatter, JSON formatter, PWA, offline tool, code optimizer">
+    <title>Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Code Beautifier | Base64 Encoder/Decoder Tool</title>
+    <meta name="title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Code Beautifier | Base64 Encoder/Decoder Tool">
+    <meta name="description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON with Base64 encoder/decoder for text and images. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics. No installation required. Works completely offline.">
+    <meta name="keywords" content="HTML minifier, CSS minifier, JavaScript minifier, JSON minifier, base64 encoder, base64 decoder, image to base64, code beautifier, code formatter, online minifier, free minifier, developer tools, code compression, HTML formatter, CSS formatter, JavaScript formatter, JSON formatter, PWA, offline tool, code optimizer">
     <meta name="author" content="Oneliner">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -22,8 +22,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://taufiksoleh.github.io/oneliner/">
-    <meta property="og:title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier">
-    <meta property="og:description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.">
+    <meta property="og:title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Base64 Encoder/Decoder">
+    <meta property="og:description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON with Base64 encoder/decoder for text and images. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.">
     <meta property="og:image" content="https://taufiksoleh.github.io/oneliner/icon.svg">
     <meta property="og:image:alt" content="Oneliner - Code Minifier and Beautifier Tool">
     <meta property="og:site_name" content="Oneliner">
@@ -32,8 +32,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://taufiksoleh.github.io/oneliner/">
-    <meta property="twitter:title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier">
-    <meta property="twitter:description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.">
+    <meta property="twitter:title" content="Oneliner - Free Online HTML, CSS, JavaScript & JSON Minifier | Base64 Encoder/Decoder">
+    <meta property="twitter:description" content="Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON with Base64 encoder/decoder for text and images. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.">
     <meta property="twitter:image" content="https://taufiksoleh.github.io/oneliner/icon.svg">
 
     <!-- PWA -->
@@ -51,7 +51,7 @@
         "name": "Oneliner",
         "alternateName": "Oneliner Code Minifier",
         "url": "https://taufiksoleh.github.io/oneliner/",
-        "description": "Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.",
+        "description": "Professional online code minifier and beautifier for HTML, CSS, JavaScript & JSON with Base64 encoder/decoder for text and images. Free developer tool with drag-and-drop support, offline PWA capability, dark mode, and real-time statistics.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -65,6 +65,8 @@
             "CSS Minification and Beautification",
             "JavaScript Minification and Beautification",
             "JSON Minification and Beautification",
+            "Base64 Encoder and Decoder for Text",
+            "Base64 Encoder and Decoder for Images",
             "Drag and Drop File Upload",
             "Offline PWA Support",
             "Dark Mode",
@@ -787,6 +789,7 @@
             <button class="tab" onclick="switchTab('css')">CSS</button>
             <button class="tab" onclick="switchTab('js')">JavaScript</button>
             <button class="tab" onclick="switchTab('json')">JSON</button>
+            <button class="tab" onclick="switchTab('base64')">Base64</button>
         </div>
 
         <!-- HTML Tab -->
@@ -957,13 +960,76 @@
             </div>
         </div>
 
+        <!-- Base64 Tab -->
+        <div class="tab-content" id="base64-content">
+            <div class="editor-section">
+                <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.25rem; font-weight: 700;">Text Encode/Decode</h3>
+
+                <label for="base64TextInput">Input Text:</label>
+                <textarea id="base64TextInput" placeholder="Enter text to encode or base64 to decode..."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-minify" onclick="encodeBase64Text()">Encode to Base64</button>
+                <button class="btn-beautify" onclick="decodeBase64Text()">Decode from Base64</button>
+                <button class="btn-copy" onclick="copyOutput('base64Text')">Copy Output</button>
+                <button class="btn-clear" onclick="clearAll('base64Text')">Clear All</button>
+            </div>
+
+            <div class="editor-section">
+                <label for="base64TextOutput">Output:</label>
+                <textarea id="base64TextOutput" readonly placeholder="Encoded/decoded text will appear here..."></textarea>
+            </div>
+
+            <hr style="border: none; border-top: 2px solid var(--border); margin: 2.5rem 0;">
+
+            <div class="editor-section">
+                <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.25rem; font-weight: 700;">Image Encode/Decode</h3>
+
+                <div class="file-upload-area" id="base64ImageUploadArea">
+                    <p>📁 Drag & drop image file here or click to browse</p>
+                    <input type="file" id="base64ImageFileInput" accept="image/*" style="display: none;" onchange="handleImageSelect(event)">
+                    <button class="file-input-btn" onclick="document.getElementById('base64ImageFileInput').click()">Choose Image</button>
+                </div>
+
+                <div id="imagePreviewContainer" style="display: none; margin-bottom: 1.5rem; text-align: center;">
+                    <label>Image Preview:</label>
+                    <div style="margin-top: 0.75rem; padding: 1rem; background: var(--bg-body); border-radius: var(--radius-lg); border: 1.5px solid var(--border);">
+                        <img id="imagePreview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius);" />
+                    </div>
+                </div>
+
+                <label for="base64ImageInput">Base64 String:</label>
+                <textarea id="base64ImageInput" placeholder="Paste base64 image string here to decode or it will appear here after encoding..."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-beautify" onclick="decodeBase64Image()">Decode Base64 to Image</button>
+                <button class="btn-copy" onclick="copyOutput('base64Image')">Copy Base64</button>
+                <button class="btn-download" onclick="downloadBase64Image()">Download Image</button>
+                <button class="btn-clear" onclick="clearAll('base64Image')">Clear All</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Base64 Size</div>
+                    <div class="stat-value" id="base64Size">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Image Type</div>
+                    <div class="stat-value" id="imageType" style="font-size: 1.125rem;">-</div>
+                </div>
+            </div>
+        </div>
+
         <div class="features">
             <h3>✨ Features:</h3>
             <ul>
                 <li><strong>Minify & Beautify:</strong> Compress or format HTML, CSS, JavaScript, and JSON</li>
+                <li><strong>Base64 Encoder/Decoder:</strong> Encode and decode text and images to/from Base64</li>
                 <li><strong>Two-Way Processing:</strong> Minify code to save space or beautify to improve readability</li>
                 <li><strong>Works Offline:</strong> Full PWA support - install and use without internet</li>
-                <li><strong>File Upload:</strong> Drag & drop or browse to upload files</li>
+                <li><strong>File Upload:</strong> Drag & drop or browse to upload files and images</li>
                 <li><strong>File Download:</strong> Save processed output directly</li>
                 <li><strong>Dark Mode:</strong> Eye-friendly dark theme with persistence</li>
                 <li><strong>Statistics:</strong> Real-time size comparison and change percentage</li>
@@ -1058,7 +1124,8 @@
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab').forEach(t => {
                     if (t.textContent.toLowerCase() === lastTab ||
-                        (lastTab === 'js' && t.textContent === 'JavaScript')) {
+                        (lastTab === 'js' && t.textContent === 'JavaScript') ||
+                        (lastTab === 'base64' && t.textContent === 'Base64')) {
                         t.classList.add('active');
                     }
                 });
@@ -1439,7 +1506,14 @@
 
         // Copy to clipboard
         async function copyOutput(type) {
-            const output = document.getElementById(`${type}Output`);
+            let output;
+            if (type === 'base64Text') {
+                output = document.getElementById('base64TextOutput');
+            } else if (type === 'base64Image') {
+                output = document.getElementById('base64ImageInput');
+            } else {
+                output = document.getElementById(`${type}Output`);
+            }
 
             if (!output.value.trim()) {
                 showNotification('Nothing to copy!', '#ef4444');
@@ -1484,11 +1558,22 @@
 
         // Clear all fields
         function clearAll(type) {
-            document.getElementById(`${type}Input`).value = '';
-            document.getElementById(`${type}Output`).value = '';
-            document.getElementById(`${type}OriginalSize`).textContent = '0';
-            document.getElementById(`${type}MinifiedSize`).textContent = '0';
-            document.getElementById(`${type}SavedSize`).textContent = '0%';
+            if (type === 'base64Text') {
+                document.getElementById('base64TextInput').value = '';
+                document.getElementById('base64TextOutput').value = '';
+            } else if (type === 'base64Image') {
+                document.getElementById('base64ImageInput').value = '';
+                document.getElementById('imagePreview').src = '';
+                document.getElementById('imagePreviewContainer').style.display = 'none';
+                document.getElementById('base64Size').textContent = '0';
+                document.getElementById('imageType').textContent = '-';
+            } else {
+                document.getElementById(`${type}Input`).value = '';
+                document.getElementById(`${type}Output`).value = '';
+                document.getElementById(`${type}OriginalSize`).textContent = '0';
+                document.getElementById(`${type}MinifiedSize`).textContent = '0';
+                document.getElementById(`${type}SavedSize`).textContent = '0%';
+            }
 
             showNotification('Cleared all fields!', '#10b981');
         }
@@ -1539,6 +1624,35 @@
                     }
                 });
             });
+
+            // Base64 Image drag and drop
+            const base64ImageUploadArea = document.getElementById('base64ImageUploadArea');
+            if (base64ImageUploadArea) {
+                base64ImageUploadArea.addEventListener('click', () => {
+                    document.getElementById('base64ImageFileInput').click();
+                });
+
+                base64ImageUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    base64ImageUploadArea.classList.add('dragover');
+                });
+
+                base64ImageUploadArea.addEventListener('dragleave', () => {
+                    base64ImageUploadArea.classList.remove('dragover');
+                });
+
+                base64ImageUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    base64ImageUploadArea.classList.remove('dragover');
+
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        handleImageFile(file);
+                    } else {
+                        showNotification('Please drop a valid image file!', '#ef4444');
+                    }
+                });
+            }
         }
 
         // Show notification
@@ -1553,18 +1667,155 @@
             }, 3000);
         }
 
+        // Base64 Text Encoding
+        function encodeBase64Text() {
+            const input = document.getElementById('base64TextInput').value;
+
+            if (!input.trim()) {
+                showNotification('Please enter some text!', '#ef4444');
+                return;
+            }
+
+            try {
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                document.getElementById('base64TextOutput').value = encoded;
+                showNotification('Text encoded to Base64 successfully!', '#10b981');
+            } catch (error) {
+                showNotification('Error encoding text: ' + error.message, '#ef4444');
+            }
+        }
+
+        // Base64 Text Decoding
+        function decodeBase64Text() {
+            const input = document.getElementById('base64TextInput').value;
+
+            if (!input.trim()) {
+                showNotification('Please enter a Base64 string!', '#ef4444');
+                return;
+            }
+
+            try {
+                const decoded = decodeURIComponent(escape(atob(input)));
+                document.getElementById('base64TextOutput').value = decoded;
+                showNotification('Base64 decoded to text successfully!', '#10b981');
+            } catch (error) {
+                showNotification('Error decoding Base64: ' + error.message, '#ef4444');
+            }
+        }
+
+        // Handle image file selection
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageFile(file);
+            } else {
+                showNotification('Please select a valid image file!', '#ef4444');
+            }
+        }
+
+        // Process image file
+        function handleImageFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64String = e.target.result;
+                document.getElementById('base64ImageInput').value = base64String;
+
+                // Show preview
+                const preview = document.getElementById('imagePreview');
+                preview.src = base64String;
+                document.getElementById('imagePreviewContainer').style.display = 'block';
+
+                // Update stats
+                document.getElementById('base64Size').textContent = (base64String.length / 1024).toFixed(2) + ' KB';
+                document.getElementById('imageType').textContent = file.type.split('/')[1].toUpperCase();
+
+                showNotification(`Image "${file.name}" encoded to Base64!`, '#10b981');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Decode Base64 to Image
+        function decodeBase64Image() {
+            const base64Input = document.getElementById('base64ImageInput').value.trim();
+
+            if (!base64Input) {
+                showNotification('Please enter a Base64 image string!', '#ef4444');
+                return;
+            }
+
+            try {
+                // Show preview
+                const preview = document.getElementById('imagePreview');
+                preview.src = base64Input;
+                document.getElementById('imagePreviewContainer').style.display = 'block';
+
+                // Extract image type from data URL
+                const match = base64Input.match(/^data:image\/(\w+);base64,/);
+                const imageType = match ? match[1].toUpperCase() : 'Unknown';
+
+                // Update stats
+                document.getElementById('base64Size').textContent = (base64Input.length / 1024).toFixed(2) + ' KB';
+                document.getElementById('imageType').textContent = imageType;
+
+                showNotification('Base64 decoded to image successfully!', '#10b981');
+            } catch (error) {
+                showNotification('Error decoding Base64 image: ' + error.message, '#ef4444');
+            }
+        }
+
+        // Download Base64 Image
+        function downloadBase64Image() {
+            const base64Input = document.getElementById('base64ImageInput').value.trim();
+
+            if (!base64Input) {
+                showNotification('Nothing to download!', '#ef4444');
+                return;
+            }
+
+            try {
+                // Extract MIME type and base64 data
+                const match = base64Input.match(/^data:(image\/\w+);base64,(.+)$/);
+                if (!match) {
+                    showNotification('Invalid Base64 image format!', '#ef4444');
+                    return;
+                }
+
+                const mimeType = match[1];
+                const extension = mimeType.split('/')[1];
+
+                // Create download link
+                const link = document.createElement('a');
+                link.href = base64Input;
+                link.download = `image.${extension}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showNotification('Image downloaded successfully!', '#10b981');
+            } catch (error) {
+                showNotification('Error downloading image: ' + error.message, '#ef4444');
+            }
+        }
+
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             // Ctrl/Cmd + Enter to minify
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
-                minify(currentTab);
+                if (currentTab !== 'base64') {
+                    minify(currentTab);
+                }
             }
 
             // Ctrl/Cmd + K to clear
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                clearAll(currentTab);
+                if (currentTab === 'base64') {
+                    clearAll('base64Text');
+                    clearAll('base64Image');
+                } else {
+                    clearAll(currentTab);
+                }
             }
         });
 
