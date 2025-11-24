@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { CodeType, TabType, EditorState, Base64State } from '~/types/editor'
+import type { CodeType, TabType, EditorState, Base64State, JwtState } from '~/types/editor'
 
 export const useEditorStore = defineStore('editor', {
   state: () => ({
@@ -55,7 +55,17 @@ export const useEditorStore = defineStore('editor', {
       imagePreview: '',
       imageType: '-',
       base64Size: 0
-    } as Base64State
+    } as Base64State,
+
+    // JWT state
+    jwt: {
+      token: '',
+      header: '',
+      payload: '',
+      signature: '',
+      isValid: false,
+      error: ''
+    } as JwtState
   }),
 
   actions: {
@@ -134,6 +144,24 @@ export const useEditorStore = defineStore('editor', {
       this.base64.imagePreview = ''
       this.base64.imageType = '-'
       this.base64.base64Size = 0
+    },
+
+    updateJwt(token: string, header: string, payload: string, signature: string, isValid: boolean, error: string) {
+      this.jwt.token = token
+      this.jwt.header = header
+      this.jwt.payload = payload
+      this.jwt.signature = signature
+      this.jwt.isValid = isValid
+      this.jwt.error = error
+    },
+
+    clearJwt() {
+      this.jwt.token = ''
+      this.jwt.header = ''
+      this.jwt.payload = ''
+      this.jwt.signature = ''
+      this.jwt.isValid = false
+      this.jwt.error = ''
     },
 
     loadSampleCode() {

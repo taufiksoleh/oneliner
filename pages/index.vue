@@ -3,7 +3,7 @@
     <div class="header">
       <div class="header-content">
         <h1>🚀 Oneliner</h1>
-        <p class="subtitle">Professional HTML, CSS, JavaScript & JSON minifier for developers</p>
+        <p class="subtitle">Professional HTML, CSS, JavaScript, JSON minifier with Base64 & JWT tools for developers</p>
       </div>
       <ThemeToggle />
     </div>
@@ -19,12 +19,16 @@
     <!-- Base64 Editor -->
     <Base64Editor v-if="currentTab === 'base64'" />
 
+    <!-- JWT Editor -->
+    <JwtEditor v-if="currentTab === 'jwt'" />
+
     <!-- Features Section -->
     <div class="features">
       <h3>✨ Features:</h3>
       <ul>
         <li><strong>Minify & Beautify:</strong> Compress or format HTML, CSS, JavaScript, and JSON</li>
         <li><strong>Base64 Encoder/Decoder:</strong> Encode and decode text and images to/from Base64</li>
+        <li><strong>JWT Encoder/Decoder:</strong> Decode and inspect JWT tokens safely and privately</li>
         <li><strong>Two-Way Processing:</strong> Minify code to save space or beautify to improve readability</li>
         <li><strong>Works Offline:</strong> Full PWA support - install and use without internet</li>
         <li><strong>File Upload:</strong> Drag & drop or browse to upload files and images</li>

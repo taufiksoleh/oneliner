@@ -22,7 +22,8 @@ const tabs = [
   { label: 'CSS', value: 'css' as TabType },
   { label: 'JavaScript', value: 'js' as TabType },
   { label: 'JSON', value: 'json' as TabType },
-  { label: 'Base64', value: 'base64' as TabType }
+  { label: 'Base64', value: 'base64' as TabType },
+  { label: 'JWT', value: 'jwt' as TabType }
 ]
 
 const currentTab = computed(() => editorStore.currentTab)
