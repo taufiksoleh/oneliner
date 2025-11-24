@@ -1,4 +1,4 @@
-# 🚀 Oneliner
+# Oneliner
 
 **Privacy-first developer tools for code minification, Base64 encoding, and JWT inspection.**
 
