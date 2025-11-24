@@ -185,7 +185,7 @@ Contributions are welcome! We have a comprehensive CI/CD pipeline to ensure code
 4. Ensure all checks pass locally:
    ```bash
    npm run test              # Run unit tests
-   npx vue-tsc --noEmit     # Type checking
+   npm run typecheck        # Type checking
    npm run generate         # Build application
    ```
 5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
@@ -197,7 +197,7 @@ Contributions are welcome! We have a comprehensive CI/CD pipeline to ensure code
 All pull requests must pass our automated quality checks:
 
 - ✅ **Unit Tests** - All Vitest tests must pass
-- ✅ **Type Checking** - TypeScript validation with vue-tsc
+- ✅ **Type Checking** - TypeScript validation with Nuxt's built-in type checker
 - ✅ **Build Verification** - Application must build successfully
 - ✅ **E2E Tests** - Playwright tests (when applicable)
 - ✅ **Quality Gate** - All checks must pass before merge

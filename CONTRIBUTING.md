@@ -55,7 +55,7 @@ When contributing:
    npm run test
 
    # Type checking
-   npx vue-tsc --noEmit
+   npm run typecheck
 
    # Build
    npm run generate

@@ -43,7 +43,7 @@ Our CI pipeline (`ci.yml`) automatically runs on all pull requests to `main` and
 
 ### Quality Checks:
 1. **Unit Tests** - Runs all Vitest unit tests
-2. **Type Check** - Validates TypeScript types with vue-tsc
+2. **Type Check** - Validates TypeScript types with Nuxt's built-in type checker
 3. **Build** - Ensures the application builds successfully
 4. **E2E Tests** - Runs Playwright end-to-end tests (optional)
 5. **Coverage** - Generates and uploads test coverage reports
@@ -113,7 +113,7 @@ Add this to your README to show CI status:
 ### CI Fails on Type Check
 ```bash
 # Run locally to see errors
-npx vue-tsc --noEmit
+npm run typecheck
 ```
 
 ### Tests Fail
