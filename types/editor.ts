@@ -1,5 +1,5 @@
 export type CodeType = 'html' | 'css' | 'js' | 'json'
-export type TabType = CodeType | 'base64'
+export type TabType = CodeType | 'base64' | 'jwt'
 
 export interface CodeStats {
   originalSize: number
@@ -26,4 +26,13 @@ export interface NotificationOptions {
   message: string
   color?: string
   duration?: number
+}
+
+export interface JwtState {
+  token: string
+  header: string
+  payload: string
+  signature: string
+  isValid: boolean
+  error: string
 }
