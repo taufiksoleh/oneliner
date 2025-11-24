@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="header-content">
-        <h1>🚀 Oneliner</h1>
+        <h1>Oneliner</h1>
         <p class="subtitle">Professional HTML, CSS, JavaScript, JSON minifier with Base64 & JWT tools for developers</p>
       </div>
       <ThemeToggle />
