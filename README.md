@@ -5,7 +5,9 @@
 A comprehensive web-based toolkit designed for developers who value **privacy and data security**. All operations are performed entirely in your browser—no servers, no tracking, no data collection. Your code and tokens never leave your device.
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success)](https://taufiksoleh.github.io/oneliner/)
+[![CI Pipeline](https://github.com/taufiksoleh/oneliner/actions/workflows/ci.yml/badge.svg)](https://github.com/taufiksoleh/oneliner/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ## 🔒 Privacy & Security First
 
@@ -173,13 +175,45 @@ Current test coverage includes:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! We have a comprehensive CI/CD pipeline to ensure code quality.
+
+### Quick Start for Contributors
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes and add tests
+4. Ensure all checks pass locally:
+   ```bash
+   npm run test              # Run unit tests
+   npx vue-tsc --noEmit     # Type checking
+   npm run generate         # Build application
+   ```
+5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+6. Push to your branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+### CI/CD Pipeline
+
+All pull requests must pass our automated quality checks:
+
+- ✅ **Unit Tests** - All Vitest tests must pass
+- ✅ **Type Checking** - TypeScript validation with vue-tsc
+- ✅ **Build Verification** - Application must build successfully
+- ✅ **E2E Tests** - Playwright tests (when applicable)
+- ✅ **Quality Gate** - All checks must pass before merge
+
+The CI pipeline runs automatically on every pull request. See [Branch Protection Guide](.github/BRANCH_PROTECTION.md) for details.
 
 ### Development Guidelines
-1. Keep privacy-first principle – no external API calls for core features
-2. Write tests for new features
-3. Follow existing code style (TypeScript, Composition API)
-4. Update documentation for new features
+
+1. **Privacy First** – No external API calls for core features
+2. **Write Tests** – Add tests for new features and bug fixes
+3. **Type Safety** – Use TypeScript with proper type definitions
+4. **Code Style** – Follow existing patterns (Composition API, TypeScript)
+5. **Documentation** – Update docs for user-facing changes
+6. **Commit Messages** – Use [Conventional Commits](https://www.conventionalcommits.org/)
+
+For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📄 License
 
